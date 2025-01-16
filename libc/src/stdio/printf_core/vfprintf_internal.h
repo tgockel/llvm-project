@@ -12,32 +12,33 @@
 #include "src/__support/File/file.h"
 #include "src/__support/arg_list.h"
 #include "src/__support/macros/attributes.h" // For LIBC_INLINE
+#include "src/__support/macros/config.h"
 #include "src/stdio/printf_core/core_structs.h"
 #include "src/stdio/printf_core/printf_main.h"
 #include "src/stdio/printf_core/writer.h"
 
-#include <stdio.h>
+#include "hdr/types/FILE.h"
 
-namespace __llvm_libc {
+namespace LIBC_NAMESPACE_DECL {
 
 namespace internal {
 #ifndef LIBC_COPT_STDIO_USE_SYSTEM_FILE
 LIBC_INLINE int ferror_unlocked(FILE *f) {
-  return reinterpret_cast<__llvm_libc::File *>(f)->error_unlocked();
+  return reinterpret_cast<LIBC_NAMESPACE::File *>(f)->error_unlocked();
 }
 
 LIBC_INLINE void flockfile(FILE *f) {
-  reinterpret_cast<__llvm_libc::File *>(f)->lock();
+  reinterpret_cast<LIBC_NAMESPACE::File *>(f)->lock();
 }
 
 LIBC_INLINE void funlockfile(FILE *f) {
-  reinterpret_cast<__llvm_libc::File *>(f)->unlock();
+  reinterpret_cast<LIBC_NAMESPACE::File *>(f)->unlock();
 }
 
 LIBC_INLINE size_t fwrite_unlocked(const void *ptr, size_t size, size_t nmemb,
                                    FILE *f) {
-  return reinterpret_cast<__llvm_libc::File *>(f)->write_unlocked(ptr,
-                                                                  size * nmemb);
+  return reinterpret_cast<LIBC_NAMESPACE::File *>(f)->write_unlocked(
+      ptr, size * nmemb);
 }
 #else  // defined(LIBC_COPT_STDIO_USE_SYSTEM_FILE)
 LIBC_INLINE int ferror_unlocked(::FILE *f) { return ::ferror_unlocked(f); }
@@ -84,6 +85,6 @@ LIBC_INLINE int vfprintf_internal(::FILE *__restrict stream,
 }
 
 } // namespace printf_core
-} // namespace __llvm_libc
+} // namespace LIBC_NAMESPACE_DECL
 
 #endif // LLVM_LIBC_SRC_STDIO_PRINTF_CORE_VFPRINTF_INTERNAL_H
