@@ -356,8 +356,6 @@ protected:
   /// protected visibility.  Defaults to MCSA_Protected
   MCSymbolAttr ProtectedVisibilityAttr = MCSA_Protected;
 
-  MCSymbolAttr MemtagAttr = MCSA_Memtag;
-
   //===--- Dwarf Emission Directives -----------------------------------===//
 
   /// True if target supports emission of debugging information.  Defaults to
@@ -433,10 +431,6 @@ protected:
   /// True if the integrated assembler should interpret 'a >> b' constant
   /// expressions as logical rather than arithmetic.
   bool UseLogicalShr = true;
-
-  // If true, then the lexer and expression parser will support %neg(),
-  // %hi(), and similar unary operators.
-  bool HasMipsExpressions = false;
 
   // If true, use Motorola-style integers in Assembly (ex. $0ac).
   bool UseMotorolaIntegers = false;
@@ -635,8 +629,6 @@ public:
     return ProtectedVisibilityAttr;
   }
 
-  MCSymbolAttr getMemtagAttr() const { return MemtagAttr; }
-
   bool doesSupportDebugInformation() const { return SupportsDebugInformation; }
 
   ExceptionHandling getExceptionHandlingType() const { return ExceptionsType; }
@@ -727,7 +719,6 @@ public:
 
   bool shouldUseLogicalShr() const { return UseLogicalShr; }
 
-  bool hasMipsExpressions() const { return HasMipsExpressions; }
   bool shouldUseMotorolaIntegers() const { return UseMotorolaIntegers; }
 };
 
