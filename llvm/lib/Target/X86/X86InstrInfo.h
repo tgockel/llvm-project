@@ -418,7 +418,7 @@ public:
                     ArrayRef<MachineOperand> Cond, Register TrueReg,
                     Register FalseReg) const override;
   void copyPhysReg(MachineBasicBlock &MBB, MachineBasicBlock::iterator MI,
-                   const DebugLoc &DL, MCRegister DestReg, MCRegister SrcReg,
+                   const DebugLoc &DL, Register DestReg, Register SrcReg,
                    bool KillSrc, bool RenamableDest = false,
                    bool RenamableSrc = false) const override;
   void storeRegToStackSlot(
@@ -463,7 +463,7 @@ public:
       LiveIntervals *LIS = nullptr) const override;
 
   bool
-  unfoldMemoryOperand(MachineFunction &MF, MachineInstr &MI, unsigned Reg,
+  unfoldMemoryOperand(MachineFunction &MF, MachineInstr &MI, Register Reg,
                       bool UnfoldLoad, bool UnfoldStore,
                       SmallVectorImpl<MachineInstr *> &NewMIs) const override;
 
@@ -641,7 +641,7 @@ protected:
       MachineInstr &Root, unsigned Pattern,
       SmallVectorImpl<MachineInstr *> &InsInstrs,
       SmallVectorImpl<MachineInstr *> &DelInstrs,
-      DenseMap<unsigned, unsigned> &InstrIdxForVirtReg) const override;
+      DenseMap<Register, unsigned> &InstrIdxForVirtReg) const override;
 
   /// When calculate the latency of the root instruction, accumulate the
   /// latency of the sequence to the root latency.
